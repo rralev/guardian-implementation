@@ -1,8 +1,8 @@
 defmodule RaliGuardian.GuardianSerializer do
   @behaviour Guardian.Serializer
 
-  alias PhoenixGuardian.Repo
-  alias PhoenixGuardian.User
+  alias RaliGuardian.Repo
+  alias RaliGuardian.User
 
   def for_token(user = %User{}), do: { :ok, "User:#{user.id}" }
   def for_token(_), do: { :error, "Unknown resource type" }
