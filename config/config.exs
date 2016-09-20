@@ -28,7 +28,7 @@ config :guardian, Guardian,
   verify_issuer: true,
   serializer: RaliGuardian.GuardianSerializer,
   secret_key: to_string(Mix.env),
-  hooks: GuardianDb,
+  # hooks: GuardianDb,
   permissions: %{
     default: [
       :read_profile,
@@ -38,9 +38,9 @@ config :guardian, Guardian,
     ],
   }
 
-config :guardian_db, GuardianDb,
-  repo: PhoenixGuardian.Repo,
-  sweep_interval: 60 # 60 minutes
+# config :guardian_db, GuardianDb,
+#   repo: PhoenixGuardian.Repo,
+#   sweep_interval: 60 # 60 minutes
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
