@@ -37,7 +37,7 @@ config :phoenix, :stacktrace_depth, 20
 config :rali_guardian, RaliGuardian.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "postgres",
+  password: "",
   database: "rali_guardian_dev",
   hostname: "localhost",
   pool_size: 10
