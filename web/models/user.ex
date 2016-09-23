@@ -8,7 +8,7 @@ defmodule RaliGuardian.User do
     field :email, :string
     field :is_admin, :boolean
 
-    # has_many :authorizations, RaliGuardian.Authorization
+    has_many :authorizations, RaliGuardian.Authorization
 
     timestamps
   end
