@@ -28,7 +28,7 @@ config :guardian, Guardian,
   verify_issuer: true,
   serializer: RaliGuardian.GuardianSerializer,
   secret_key: to_string(Mix.env),
-  # hooks: GuardianDb,
+  hooks: GuardianDb,
   permissions: %{
     default: [
       :read_profile,
@@ -37,6 +37,11 @@ config :guardian, Guardian,
       :revoke_token,
     ],
   }
+
+config :guardian_db, GuardianDb,
+  repo: RaliGuardian.Repo,
+  sweep_interval: 60 # 60 minutes
+
 
 # config :guardian_db, GuardianDb,
 #   repo: PhoenixGuardian.Repo,
