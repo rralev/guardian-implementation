@@ -18,8 +18,16 @@ defmodule RaliGuardian.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {RaliGuardian, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+     applications: [:phoenix,
+                    :phoenix_pubsub,
+                    :phoenix_html,
+                    :cowboy,
+                    :logger,
+                    :gettext,
+                    :phoenix_ecto,
+                    :postgrex,
+                    :comeonin,
+                    :ueberauth]]
   end
 
   # Specifies which paths to compile per environment.
@@ -40,7 +48,8 @@ defmodule RaliGuardian.Mixfile do
      {:cowboy, "~> 1.0"},
      {:guardian, "~> 0.12.0"},
      {:guardian_db, "~> 0.7"},
-     {:comeonin, "~> 2.5"}]
+     {:comeonin, "~> 2.5"},
+     {:ueberauth, "~> 0.4.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

@@ -42,6 +42,11 @@ config :guardian_db, GuardianDb,
   repo: RaliGuardian.Repo,
   sweep_interval: 60 # 60 minutes
 
+config :ueberauth, Ueberauth,
+  providers: [
+    identity: {Ueberauth.Strategy.Identity, [callback_methods: ["POST"]]},
+  ]
+
 
 # config :guardian_db, GuardianDb,
 #   repo: PhoenixGuardian.Repo,
