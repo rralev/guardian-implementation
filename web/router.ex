@@ -9,20 +9,34 @@ defmodule RaliGuardian.Router do
     plug :put_secure_browser_headers
   end
 
-  # pipeline :browser_auth do
-  #   plug Guardian.Plug.VerifySession
-  #   plug Guardian.Plug.LoadResource
-  # end
+  pipeline :browser_auth do
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+  end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", RaliGuardian do
-    pipe_through [:browser] # Use the default browser stack
+    pipe_through [:browser, :browser_auth] # Use the default browser stack
 
     get "/", PageController, :index
     get "/private", PrivatePageController, :index
+
+    delete "/logout", AuthController, :logout
+
+    resources "/users", UserController
+  end
+
+  scope "/auth", RaliGuardian do
+    pipe_through [:browser, :browser_auth] # Use the default browser stack
+
+    get "/:identity", AuthController, :login
+    get "/:identity/callback", AuthController, :callback
+    post "/:identity/callback", AuthController, :callback
+
+    resources "/users", UserController
   end
 
   # Other scopes may use custom stacks.
