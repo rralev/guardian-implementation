@@ -154,7 +154,7 @@ defmodule RaliGuardian.UserFromAuth do
   end
 
   defp authorization_from_auth(user, auth, repo) do
-    authorization = Ecto.build_assoc(user, :authorizations)
+    authorization = Ecto.build_assoc(user, :authorizations, %{})
     result = Authorization.changeset(
       authorization,
       scrub(
