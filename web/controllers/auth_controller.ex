@@ -10,18 +10,22 @@ defmodule RaliGuardian.AuthController do
 
   plug Ueberauth
 
-  def login(conn, _params, current_user, _claims) do
-    render conn, "login.html", current_user: current_user, current_auths: auths(current_user)
+  def login(conn, params) do
+    current_user = Guardian.Plug.current_resource(conn)
+    current_token = Guardian.Plug.current_token(conn)
+    render conn, "login.html", current_user: params["current_user"], current_auths: auths(params["current_user"])
   end
 
-  def callback(%Plug.Conn{assigns: %{ueberauth_failure: fails}} = conn, _params, current_user, _claims) do
+  def callback(%Plug.Conn{assigns: %{ueberauth_failure: fails}} = conn, current_user) do
     conn
     |> put_flash(:error, hd(fails.errors).message)
     |> render("login.html", current_user: current_user, current_auths: auths(current_user))
   end
 
-  def callback(%Plug.Conn{assigns: %{ueberauth_auth: auth}} = conn, _params, current_user, _claims) do
-    case UserFromAuth.get_or_insert(auth, current_user, Repo) do
+  def callback(%Plug.Conn{assigns: %{ueberauth_auth: auth}} = conn, params) do
+    IO.puts "USERRR: "
+    IO.inspect params
+    case UserFromAuth.get_or_insert(auth, nil, Repo) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Signed in as #{user.name}")
@@ -30,11 +34,12 @@ defmodule RaliGuardian.AuthController do
       {:error, _reason} ->
         conn
         |> put_flash(:error, "Could not authenticate. Error: #{_reason}")
-        |> render("login.html", current_user: current_user, current_auths: auths(current_user))
+        |> render("login.html", current_user: Guardian.Plug.current_resource(conn), current_auths: auths(Guardian.Plug.current_resource(conn)))
     end
   end
 
-  def logout(conn, _params, current_user, _claims) do
+  def logout(conn, _params) do
+    current_user = Guardian.Plug.current_resource(conn) 
     if current_user do
       conn
       # This clears the whole session.
