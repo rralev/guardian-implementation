@@ -7,6 +7,7 @@ defmodule RaliGuardian.Repo.Migrations.AddUsersTable do
     create table(:users) do
       add :name, :string
       add :email, :citext
+      # add :is_admin, :boolean, default: false
 
       timestamps
     end
