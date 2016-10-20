@@ -6,7 +6,7 @@ defmodule RaliGuardian.User do
   schema "users" do
     field :name, :string
     field :email, :string
-    field :is_admin, :boolean
+    # field :is_admin, :boolean
 
     has_many :authorizations, RaliGuardian.Authorization
 
