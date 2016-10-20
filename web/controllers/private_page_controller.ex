@@ -4,12 +4,21 @@ defmodule RaliGuardian.PrivatePageController do
   plug Guardian.Plug.EnsureAuthenticated, handler: __MODULE__, typ: "access"
 
   def index(conn, _params) do
-    render conn, "index.html"
+    current_token = Guardian.Plug.current_token(conn)
+    current_resource = Guardian.Plug.current_resource(conn)
+    IO.puts "TOKEN:"
+    IO.inspect current_token
+    IO.puts "RESOURCE:"
+    IO.inspect current_resource
+    conn
+    |> assign(:token, current_token)
+    |> assign(:resourcee, current_resource)
+    |> render("index.html")
   end
 
   def unauthenticated(conn, _params) do
     conn
     |> put_flash(:error, "Authentication required")
-    |> redirect(external: "http://elixir-lang.org/")
+    |> redirect(to: "/")
   end
 end
