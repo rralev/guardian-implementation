@@ -27,7 +27,8 @@ defmodule RaliGuardian.Mixfile do
                     :phoenix_ecto,
                     :postgrex,
                     :comeonin,
-                    :ueberauth]]
+                    :ueberauth,
+                    :ueberauth_identity]]
   end
 
   # Specifies which paths to compile per environment.
@@ -49,7 +50,9 @@ defmodule RaliGuardian.Mixfile do
      {:guardian, "~> 0.12.0"},
      {:guardian_db, "~> 0.7"},
      {:comeonin, "~> 2.5"},
-     {:ueberauth, "~> 0.4.0"}]
+     {:ueberauth, "~> 0.4.0"},
+     {:ueberauth_identity, "~>0.2.3"}
+   ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
